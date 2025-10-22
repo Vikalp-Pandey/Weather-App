@@ -20,7 +20,7 @@ const AppContent = () => {
   // Now this works, because AppContent is a child of SearchProvider
   const { loading, city } = useContext(SearchContext);
   return (
-    <div className='w-[100%] h-[100vh] container overflow-hidden' data-theme="forest">
+    <div className='w-[100%] h-[100vh] bg-black container overflow-auto' data-theme="forest">
       <BrowserRouter>
       <Navbar />
       {/* Define Routes */}

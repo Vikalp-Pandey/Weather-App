@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { act } from 'react'
 import { SearchContext } from './SearchContext'
 import { useState } from 'react'
 import axios from 'axios';
@@ -10,49 +10,76 @@ const SearchProvider = ({children}) => {
   const [city,setCity]=useState('');
   const [searchTerm, setSearchTerm] = useState(''); // Create a local state to manage the input field's value.
   const [weatherData,setWeatherData]=useState({});
+ const  [forecastData,setForecastData]= useState([]);
+  const [dailyForecast, setDailyForecast] = useState([]);
+  const [hourlyForecast, setHourlyForecast] = useState([]);
+
   const [error,setError]=useState(null);
   const [loading,setLoading]=useState(false);
+  const [activeTab,setActiveTab]=useState('temp');
 
 
-
-
-  useEffect(()=>{
-    const fetchWeather =async ()=>{
-      if(!city){
+  useEffect(() => {
+    // Using a single async function to manage both API calls
+    const fetchAllData = async () => {
+      if (!city) {
         console.log("Enter the city name");
         setWeatherData(null);
+        setForecastData(null); 
         return;
-      };
-      setLoading(true);
-      setError(null); //Clear previous errors before a new request
+      }
 
-    //^ 1. The try/catch block MUST wrap the async operation (axios call)
-    try {
-        const response = await axios.get(`/api/weather/${city}`);
-        console.log(response.data.city);
-        setWeatherData(response.data);
-        console.log(response.data);
+      setLoading(true);
+      setError(null);
+
+      try {
+        // Use Promise.all to run both requests concurrently for better performance
+        const [weatherResponse, forecastResponse] = await Promise.all([
+          axios.get(`/api/weather/${city}`),
+          axios.get(`/api/forecast/${city}`)
+        ]);
+
+        // This code only runs after BOTH requests have successfully finished
+        setWeatherData(weatherResponse.data);
+        setForecastData(forecastResponse.data);
+        setDailyForecast(forecastResponse.data.daily);
+        setHourlyForecast(forecastResponse.data.hourly);
+        
+        console.log("Current Weather:", weatherResponse.data);
+        console.log("Forecast:", forecastResponse.data);
+
       } catch (err) {
         setError('Could not fetch weather data.');
-        setWeatherData({}); // Clear data on error
-        console.log("Fetch error:", err); // Log the actual error for debugging
+        setWeatherData({});
+        setForecastData({});
+        setDailyForecast([]);
+        setHourlyForecast([]);
+        console.error("Fetch error:", err); // Use console.error for errors
       } finally {
-        // This runs whether the fetch succeeded or failed
+        // This will only run once, after everything is finished.
         setLoading(false);
       }
     };
-    fetchWeather();
-    },[city]); // The dependency array ensures this runs only when `city` changes
 
-  // Creating an object to store all the states
+    fetchAllData();
+
+  }, [city]);
+  
+  
+  
   const value = {
     city,
     setCity,
     searchTerm, 
     setSearchTerm,
     weatherData,
+    forecastData,
+    dailyForecast,
+    hourlyForecast,
     loading,
     error,
+    activeTab,
+    setActiveTab
   };
   return (
     <div>

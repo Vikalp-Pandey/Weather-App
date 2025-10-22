@@ -2,6 +2,8 @@ import {React, useContext, useState } from 'react';
 import { SearchContext } from '../searchContext/SearchContext';
 import { SearchIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { assets } from '../assets/asset';
+
 
 const Navbar = () => {
 //^ M-1 : Use the context to get the setter function
@@ -29,7 +31,11 @@ const Navbar = () => {
 
   return (
     <div className='bg-blue-400 container px-4 h-14 w-[100%] border-b-white flex items-center gap-7'>
-       <div className='text-2xl'>Mausam</div>
+       <div className='flex'>
+            <img className='h-8 w-8' src={assets.logo} alt="" />
+            <div className='text-2xl'>Mausam</div>
+       </div>
+       
        <div className='bg-blue-600 rounded-2xl px-3 h-8 w-[700px] flex justify-between items-center'>
            <SearchIcon className='h-4 ' />
            <input type="text" className='w-[650px] outline-none' placeholder='Search for City' onChange={handleChange}
