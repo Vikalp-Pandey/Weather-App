@@ -5,7 +5,6 @@ import SearchProvider from './searchContext/SearchProvider';
 
 import { useContext } from 'react';
 import { SearchContext } from './searchContext/SearchContext';
-import Loading from './components/Loading';
 import Welcome from './components/Welcome';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 /*
@@ -26,7 +25,6 @@ const AppContent = () => {
       {/* Define Routes */}
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/loading" element={<Loading />} />
         <Route path="/home" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
