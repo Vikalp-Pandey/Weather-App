@@ -57,8 +57,8 @@ export const getCityForecast =async (req, res) => {
                   temp: Math.round(hour.temp_c),
                   wind_kph: Math.round(hour.wind_kph),
                   wind_dir: hour.wind_dir,
-                  precip_mm: hour.precip_mm,
-                  precip_in: hour.precip_in
+                  // precip_mm: hour.precip_mm,
+                  // precip_in: hour.precip_in
   }))
 );
 
@@ -75,8 +75,8 @@ export const getCityForecast =async (req, res) => {
                 wind_kph: Math.round((hour.wind_kph)),
                 wind_degree: Math.round((hour.wind_degree)),
                 wind_dir: hour.wind_dir,
-                precip_mm: hour.precip_mm,
-                precip_in:hour.precip_in
+                // precip_mm: hour.precip_mm,
+                // precip_in:hour.precip_in
             }));
 
         const current = {
@@ -86,13 +86,13 @@ export const getCityForecast =async (req, res) => {
              condition_icon: forecastData.current.condition.icon,
              humidity: forecastData.current.humidity,
              wind_kph: forecastData.current.wind_kph,
-             precip_mm: forecastData.current.precip_mm,
+            //  precip_mm: forecastData.current.precip_mm,
         };
 
 
         // 5. Send the final, combined data object back to the frontend
-        // res.status(200).json({ current, daily, hourly });
-        res.status(200).json({ forecastData });
+        res.status(200).json({ current, daily, hourly });
+
 
 
     } catch (error) {
@@ -100,7 +100,7 @@ export const getCityForecast =async (req, res) => {
         if (error.response && error.response.status === 400) {
              return res.status(404).json({ message: `City not found: ${city}` });
         }
-        res.status(500).json({ message: 'Failed to fetch weather data.' });
+        res.status(500).json({ message: error.message });
     }
 }
 
