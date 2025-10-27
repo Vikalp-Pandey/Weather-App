@@ -40,9 +40,9 @@ const TemperatureChart = () => {
     if (!hourlyForecast || hourlyForecast.length === 0) return null;
 
     return (
-        <div style={{ width: '100%', height: 150 }} className="mt-10 overflow-hidden">
+        <div style={{ width: '100%', height: 150 }} className="mt-8 overflow-hidden">
             <ResponsiveContainer>
-                <AreaChart data={hourlyForecast} margin={{top:10, right:0, left:10, bottom:20}} >
+                <AreaChart data={hourlyForecast} margin={{top:12, right:0, left:10, bottom:20}} >
                     <defs>
                         <linearGradient id="colorTemp" x1="0" y1="0" x2="0" y2="1" >
                             <stop offset="5%" stopColor="#facc15" stopOpacity={0.6} />
@@ -65,9 +65,5 @@ const TemperatureChart = () => {
         </div>
     );
 };
-
-
-
-
 
 export default TemperatureChart;

@@ -29,10 +29,7 @@ const CityWeatherDetails = () => {
               Temperature
           {activeTab == 'temp' && (<div className=' h-0.5 w-22 bg-[#f8bb03]'></div>)}
           </div> 
-
-         <span className='text-gray-1000 font-extralight'>|</span>
-
-
+          
          <span className='text-gray-900 font-extralight'>|</span>
 
          <div className='cursor-pointer' onClick={handleWindClick}>
