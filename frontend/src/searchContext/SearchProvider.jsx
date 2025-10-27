@@ -35,8 +35,8 @@ const SearchProvider = ({children}) => {
       try {
         // Use Promise.all to run both requests concurrently for better performance
         const [weatherResponse, forecastResponse] = await Promise.all([
-          axios.get(`/api/weather/${city}`),
-          axios.get(`/api/forecast/${city}`)
+          axios.get(`${process.env.VITE_API_URL}/api/weather/${city}`),
+          axios.get(`${process.env.VITE_API_URL}/api/forecast/${city}`)
         ]);
 
         // This code only runs after BOTH requests have successfully finished
