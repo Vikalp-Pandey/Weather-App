@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const BASE_API="https://api.openweathermap.org"
+
 
 //^ A Route to Get Any City Weather
 export const getCityWeather= async (req, res) => {
   try {
     const { city } = req.params;
-
+    const BASE_API="https://api.openweathermap.org"
     const response = await axios.get(`${BASE_API}/data/2.5/weather`, {
       params: {
         q: city,
@@ -75,8 +75,8 @@ export const getCityForecast =async (req, res) => {
                 wind_kph: Math.round((hour.wind_kph)),
                 wind_degree: Math.round((hour.wind_degree)),
                 wind_dir: hour.wind_dir,
-                // precip_mm: hour.precip_mm,
-                // precip_in:hour.precip_in
+                precip_mm: hour.precip_mm,
+                precip_in:hour.precip_in
             }));
 
         const current = {
@@ -89,8 +89,10 @@ export const getCityForecast =async (req, res) => {
              precip_mm: forecastData.current.precip_mm,
         };
 
+
         // 5. Send the final, combined data object back to the frontend
-        res.status(200).json({ current, daily, hourly });
+        // res.status(200).json({ current, daily, hourly });
+        res.status(200).json({ forecastData });
 
 
     } catch (error) {
