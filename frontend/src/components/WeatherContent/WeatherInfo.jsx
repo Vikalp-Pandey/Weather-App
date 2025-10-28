@@ -25,7 +25,7 @@ const WeatherInfo = () => {
     };
 
   return (
-    <div className='mb-10 mt-10'>
+    <div className='mb-12 mt-8'>
       {activeTab=='temp' && <div><TemperatureChart/></div>}
       {activeTab=='wind' && <div><WindChart/></div>}
     <div><WeatherForecast/></div>
