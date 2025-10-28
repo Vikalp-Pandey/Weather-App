@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 
+const BASE_API="https://api.openweathermap.org"
 
 //^ A Route to Get Any City Weather
 export const getCityWeather= async (req, res) => {
   try {
     const { city } = req.params;
-    const BASE_API="https://api.openweathermap.org"
+    
     const response = await axios.get(`${BASE_API}/data/2.5/weather`, {
       params: {
         q: city,

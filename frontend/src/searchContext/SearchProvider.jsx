@@ -1,9 +1,8 @@
-import React, { act } from 'react'
+
 import { SearchContext } from './SearchContext'
 import { useState } from 'react'
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 
 const SearchProvider = ({children}) => {
@@ -32,12 +31,15 @@ const SearchProvider = ({children}) => {
       setLoading(true);
       setError(null);
 
+      const BASE_API=import.meta.env.VITE_API_URL;
+      
       try {
         // Use Promise.all to run both requests concurrently for better performance
         const [weatherResponse, forecastResponse] = await Promise.all([
-          axios.get(`${process.env.VITE_API_URL}/api/weather/${city}`),
-          axios.get(`${process.env.VITE_API_URL}/api/forecast/${city}`)
+          axios.get(`${BASE_API}/api/weather/${city}`),
+          axios.get(`${BASE_API}/api/forecast/${city}`)
         ]);
+
 
         // This code only runs after BOTH requests have successfully finished
         setWeatherData(weatherResponse.data);
